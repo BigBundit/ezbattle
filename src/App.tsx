@@ -346,22 +346,22 @@ export default function App() {
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-8 flex flex-col lg:flex-row gap-6 flex-1">
         <main className="flex-1 w-full lg:w-[75%]">
           {/* Stepper */}
-          <div className="flex justify-center mb-12">
-            <div className="flex items-center gap-4 bg-white p-3 rounded-2xl cartoon-border shadow-[4px_4px_0px_#0f172a]">
+          <div className="flex justify-center mb-8 sm:mb-12 overflow-x-auto px-1 sm:px-0">
+            <div className="flex items-center gap-1 sm:gap-4 bg-white p-2 sm:p-3 rounded-2xl cartoon-border shadow-[4px_4px_0px_#0f172a] min-w-max mx-auto">
               <Step 
                 number="1"
                 label={t('signUp', lang)} 
                 active={activeCategory.tournamentState === 'registration'} 
                 completed={activeCategory.tournamentState !== 'registration'} 
               />
-              <div className="w-8 h-1 bg-slate-900 rounded-full"></div>
+              <div className="w-3 sm:w-8 h-1 bg-slate-900 rounded-full shrink-0"></div>
               <Step 
                 number="2"
                 label={t('play', lang)} 
                 active={activeCategory.tournamentState === 'active'} 
                 completed={activeCategory.tournamentState === 'completed'} 
               />
-              <div className="w-8 h-1 bg-slate-900 rounded-full"></div>
+              <div className="w-3 sm:w-8 h-1 bg-slate-900 rounded-full shrink-0"></div>
               <Step 
                 number="3"
                 label={t('winners', lang)} 
@@ -526,12 +526,12 @@ export default function App() {
 
 function Step({ number, label, active, completed }: { number: string, label: string, active: boolean, completed: boolean }) {
   return (
-    <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl transition-all duration-300 ${
+    <div className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl transition-all duration-300 ${
       active ? 'bg-blue-500 text-white cartoon-border shadow-[2px_2px_0px_#0f172a]' : 
       completed ? 'bg-green-400 text-slate-900 cartoon-border shadow-[2px_2px_0px_#0f172a]' : 'bg-slate-100 text-slate-400'
     }`}>
-      <span className="cartoon-title text-lg">{number}</span>
-      <span className="font-bold text-sm uppercase tracking-wider">{label}</span>
+      <span className="cartoon-title text-base sm:text-lg">{number}</span>
+      <span className="font-bold text-xs sm:text-sm uppercase tracking-wider whitespace-nowrap">{label}</span>
     </div>
   );
 }

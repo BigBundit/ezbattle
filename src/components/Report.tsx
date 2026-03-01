@@ -105,7 +105,7 @@ export default function Report({ players, matches, format, lang, config }: Props
       <div className="flex justify-end mb-4">
         <button 
           onClick={handleExportReport}
-          className="cartoon-button cartoon-button-blue flex items-center gap-2 px-6 py-3"
+          className="cartoon-button cartoon-button-blue flex items-center justify-center gap-2 px-6 py-3 w-full sm:w-auto"
         >
           <Download className="w-5 h-5" strokeWidth={3} />
           {t('viewFinalReport', lang)}

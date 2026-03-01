@@ -376,9 +376,9 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
           <div className="mt-8 flex justify-center">
             <button 
               onClick={handleGenerateNextRound}
-              className="cartoon-button cartoon-button-yellow text-xl px-12 py-4"
+              className="cartoon-button cartoon-button-yellow text-lg sm:text-xl px-6 sm:px-12 py-4 w-full sm:w-auto"
             >
-              <Zap className="w-6 h-6" fill="currentColor" />
+              <Zap className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" />
               {t('generateNextRound', lang)}
             </button>
           </div>

@@ -258,7 +258,7 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
           )}
         </div>
 
-        <form onSubmit={handleAdd} className="flex gap-3 mb-10">
+        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-10">
           <input
             type="text"
             value={name}
@@ -269,7 +269,7 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
           <button 
             type="submit"
             disabled={!name.trim()}
-            className="cartoon-button cartoon-button-green"
+            className="cartoon-button cartoon-button-green w-full sm:w-auto"
           >
             <UserPlus className="w-5 h-5" strokeWidth={3} />
             {t('add', lang)}
