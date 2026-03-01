@@ -1,0 +1,5 @@
+{
+  "name": "Tournament Manager",
+  "description": "Application for managing tournament registration, brackets, and results.",
+  "requestFramePermissions": []
+}
