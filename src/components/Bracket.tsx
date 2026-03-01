@@ -200,65 +200,65 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
   const isCurrentRoundFinished = currentRoundMatches.every(m => m.isBye || (m.score1 !== '' && m.score2 !== ''));
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
       {format === 'round_robin' && (
-        <div id="leaderboard" className="cartoon-card p-8 overflow-x-auto relative">
+        <div id="leaderboard" className="cartoon-card p-4 sm:p-8 overflow-x-auto relative">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="cartoon-title text-2xl text-slate-900 mx-auto">🏆 {t('standings', lang)}</h3>
+            <h3 className="cartoon-title text-xl sm:text-2xl text-slate-900 mx-auto">🏆 {t('standings', lang)}</h3>
             <button 
               onClick={handleExportLeaderboard}
               data-html2canvas-ignore="true"
-              className="absolute right-8 top-8 p-2 bg-white border-2 border-slate-900 rounded-lg shadow-[2px_2px_0px_#0f172a] text-slate-600 hover:text-blue-600 hover:-translate-y-0.5 transition-all"
+              className="absolute right-4 top-4 sm:right-8 sm:top-8 p-2 bg-white border-2 border-slate-900 rounded-lg shadow-[2px_2px_0px_#0f172a] text-slate-600 hover:text-blue-600 hover:-translate-y-0.5 transition-all"
               title={t('exportImage', lang)}
             >
-              <Download className="w-5 h-5" strokeWidth={3} />
+              <Download className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={3} />
             </button>
           </div>
-          <div className="border-4 border-slate-900 rounded-xl overflow-hidden">
-            <table className="w-full text-left text-sm font-bold">
+          <div className="border-4 border-slate-900 rounded-xl overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm font-bold min-w-[600px]">
               <thead className="bg-slate-900 text-white">
                 <tr>
-                  <th className="py-3 pl-4">#</th>
-                  <th className="py-3">{t('player', lang)}</th>
-                  <th className="py-3 text-center">{t('played', lang)}</th>
-                  <th className="py-3 text-center text-green-400">{t('won', lang)}</th>
-                  <th className="py-3 text-center text-yellow-400">
+                  <th className="py-2 sm:py-3 pl-2 sm:pl-4">#</th>
+                  <th className="py-2 sm:py-3">{t('player', lang)}</th>
+                  <th className="py-2 sm:py-3 text-center">{t('played', lang)}</th>
+                  <th className="py-2 sm:py-3 text-center text-green-400">{t('won', lang)}</th>
+                  <th className="py-2 sm:py-3 text-center text-yellow-400">
                     <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
                       D <Info className="w-3 h-3 text-slate-400" />
                     </div>
                   </th>
-                  <th className="py-3 text-center text-red-400">{t('lost', lang)}</th>
-                  <th className="py-3 text-center">
+                  <th className="py-2 sm:py-3 text-center text-red-400">{t('lost', lang)}</th>
+                  <th className="py-2 sm:py-3 text-center">
                     <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
                       GF <Info className="w-3 h-3 text-slate-400" />
                     </div>
                   </th>
-                  <th className="py-3 text-center">
+                  <th className="py-2 sm:py-3 text-center">
                     <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
                       GA <Info className="w-3 h-3 text-slate-400" />
                     </div>
                   </th>
-                  <th className="py-3 text-center">
+                  <th className="py-2 sm:py-3 text-center">
                     <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
                       +/- <Info className="w-3 h-3 text-slate-400" />
                     </div>
                   </th>
-                  <th className="py-3 text-center text-yellow-400 text-base">{t('points', lang)}</th>
+                  <th className="py-2 sm:py-3 text-center text-yellow-400 text-sm sm:text-base">{t('points', lang)}</th>
                 </tr>
               </thead>
               <tbody className="bg-white">
                 {calculateStandings().map((s, idx) => (
                   <tr key={s.id} className="border-b-4 border-slate-900 last:border-b-0 hover:bg-slate-100 transition-colors">
-                    <td className="py-3 pl-4 text-slate-500">{idx + 1}</td>
-                    <td className="py-3 text-slate-900 text-base">{s.name}</td>
-                    <td className="py-3 text-center text-slate-600">{s.played}</td>
-                    <td className="py-3 text-center text-green-600">{s.won}</td>
-                    <td className="py-3 text-center text-yellow-600">{s.drawn}</td>
-                    <td className="py-3 text-center text-red-600">{s.lost}</td>
-                    <td className="py-3 text-center text-slate-600">{s.gf}</td>
-                    <td className="py-3 text-center text-slate-600">{s.ga}</td>
-                    <td className="py-3 text-center text-blue-600">{s.gd > 0 ? `+${s.gd}` : s.gd}</td>
-                    <td className="py-3 text-center text-slate-900 text-lg">{s.points}</td>
+                    <td className="py-2 sm:py-3 pl-2 sm:pl-4 text-slate-500">{idx + 1}</td>
+                    <td className="py-2 sm:py-3 text-slate-900 text-sm sm:text-base">{s.name}</td>
+                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.played}</td>
+                    <td className="py-2 sm:py-3 text-center text-green-600">{s.won}</td>
+                    <td className="py-2 sm:py-3 text-center text-yellow-600">{s.drawn}</td>
+                    <td className="py-2 sm:py-3 text-center text-red-600">{s.lost}</td>
+                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.gf}</td>
+                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.ga}</td>
+                    <td className="py-2 sm:py-3 text-center text-blue-600">{s.gd > 0 ? `+${s.gd}` : s.gd}</td>
+                    <td className="py-2 sm:py-3 text-center text-slate-900 text-base sm:text-lg">{s.points}</td>
                   </tr>
                 ))}
               </tbody>
@@ -267,8 +267,8 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
         </div>
       )}
 
-      <div className="cartoon-card p-8">
-        <div className="mb-8 max-w-md mx-auto flex items-center bg-white cartoon-border shadow-[4px_4px_0px_#0f172a] rounded-xl overflow-hidden px-4">
+      <div className="cartoon-card p-4 sm:p-8">
+        <div className="mb-6 sm:mb-8 max-w-md mx-auto flex items-center bg-white cartoon-border shadow-[4px_4px_0px_#0f172a] rounded-xl overflow-hidden px-3 sm:px-4">
           <Search className="text-slate-400 w-6 h-6 flex-shrink-0" strokeWidth={3} />
           <input 
             type="text" 

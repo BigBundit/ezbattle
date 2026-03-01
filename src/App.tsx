@@ -240,27 +240,27 @@ export default function App() {
   return (
     <div className="min-h-screen font-sans pb-12 bg-green-50 flex flex-col">
       <header className="bg-white cartoon-border border-x-0 border-t-0 sticky top-0 z-50 shadow-[0_4px_0px_#0f172a]">
-        <div className="max-w-[1600px] mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="bg-green-400 p-2 rounded-xl cartoon-border shadow-[2px_2px_0px_#0f172a] transform -rotate-6">
-              <Trophy className="w-6 h-6 text-slate-900" strokeWidth={2.5} />
+        <div className="max-w-[1600px] mx-auto px-3 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0">
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-start">
+            <div className="bg-green-400 p-1.5 sm:p-2 rounded-xl cartoon-border shadow-[2px_2px_0px_#0f172a] transform -rotate-6">
+              <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-slate-900" strokeWidth={2.5} />
             </div>
             <div>
-              <h1 className="text-2xl cartoon-title text-slate-900 drop-shadow-[2px_2px_0px_#4ade80]">{config.name}</h1>
+              <h1 className="text-xl sm:text-2xl cartoon-title text-slate-900 drop-shadow-[2px_2px_0px_#4ade80]">{config.name}</h1>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <button onClick={handleExport} className="cartoon-button bg-yellow-100 hover:bg-yellow-200 text-sm py-2 px-3 shadow-[2px_2px_0px_#0f172a]" title="Export">
+          <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-center sm:justify-end flex-wrap">
+            <button onClick={handleExport} className="cartoon-button bg-yellow-100 hover:bg-yellow-200 text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-3 shadow-[2px_2px_0px_#0f172a]" title="Export">
               <Download className="w-4 h-4" strokeWidth={3} />
             </button>
-            <button onClick={() => fileInputRef.current?.click()} className="cartoon-button bg-yellow-100 hover:bg-yellow-200 text-sm py-2 px-3 shadow-[2px_2px_0px_#0f172a]" title="Import">
+            <button onClick={() => fileInputRef.current?.click()} className="cartoon-button bg-yellow-100 hover:bg-yellow-200 text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-3 shadow-[2px_2px_0px_#0f172a]" title="Import">
               <Upload className="w-4 h-4" strokeWidth={3} />
             </button>
             <input type="file" accept=".json" ref={fileInputRef} onChange={handleImport} className="hidden" />
             
             <button 
               onClick={() => setLang(lang === 'en' ? 'th' : 'en')}
-              className="cartoon-button bg-blue-100 hover:bg-blue-200 text-sm py-2 px-3 shadow-[2px_2px_0px_#0f172a]"
+              className="cartoon-button bg-blue-100 hover:bg-blue-200 text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-3 shadow-[2px_2px_0px_#0f172a]"
             >
               <Languages className="w-4 h-4" strokeWidth={3} />
               {lang === 'en' ? 'TH' : 'EN'}
@@ -268,21 +268,21 @@ export default function App() {
             {activeCategory.tournamentState !== 'registration' && (
               <button 
                 onClick={handleReset}
-                className="cartoon-button cartoon-button-pink text-sm py-2 px-4 shadow-[2px_2px_0px_#0f172a]"
+                className="cartoon-button cartoon-button-pink text-xs sm:text-sm py-1.5 sm:py-2 px-2 sm:px-4 shadow-[2px_2px_0px_#0f172a]"
               >
                 <RefreshCw className="w-4 h-4" strokeWidth={3} />
-                {t('startOver', lang)}
+                <span className="hidden sm:inline">{t('startOver', lang)}</span>
               </button>
             )}
           </div>
         </div>
         
         {/* Categories Tab Bar */}
-        <div className="bg-slate-100 border-t-2 border-slate-900 px-6 pt-3 flex items-center gap-2 overflow-x-auto">
+        <div className="bg-slate-100 border-t-2 border-slate-900 px-3 sm:px-6 pt-3 flex items-center gap-2 overflow-x-auto">
           {categories.map(cat => (
             <div 
               key={cat.id} 
-              className={`flex items-center gap-2 px-4 py-2 rounded-t-xl border-2 border-b-0 border-slate-900 cursor-pointer transition-colors ${activeCategoryId === cat.id ? 'bg-white font-bold text-slate-900' : 'bg-slate-200 text-slate-600 hover:bg-slate-300'}`} 
+              className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-t-xl border-2 border-b-0 border-slate-900 cursor-pointer transition-colors whitespace-nowrap ${activeCategoryId === cat.id ? 'bg-white font-bold text-slate-900' : 'bg-slate-200 text-slate-600 hover:bg-slate-300'}`} 
               onClick={() => {
                 if (activeCategoryId !== cat.id) {
                   setActiveCategoryId(cat.id);
@@ -312,7 +312,7 @@ export default function App() {
                       setEditingCategoryId(null);
                     }
                   }}
-                  className="bg-white border-2 border-blue-500 rounded px-2 py-0.5 text-sm outline-none w-32 font-bold text-slate-900"
+                  className="bg-white border-2 border-blue-500 rounded px-2 py-0.5 text-sm outline-none w-24 sm:w-32 font-bold text-slate-900"
                   onClick={(e) => e.stopPropagation()}
                 />
               ) : (
@@ -325,18 +325,19 @@ export default function App() {
                     }
                   }}
                   title={lang === 'th' ? 'คลิกเพื่อแก้ไขชื่อ' : 'Click to edit name'}
+                  className="text-sm sm:text-base"
                 >
                   {cat.name}
                 </span>
               )}
               {categories.length > 1 && (
-                <button onClick={(e) => handleDeleteCategory(cat.id, e)} className="text-slate-400 hover:text-red-500 transition-colors">
-                  <Trash2 className="w-4 h-4" />
+                <button onClick={(e) => handleDeleteCategory(cat.id, e)} className="text-slate-400 hover:text-red-500 transition-colors ml-1 p-0.5">
+                  <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
                 </button>
               )}
             </div>
           ))}
-          <button onClick={handleAddCategory} className="flex items-center gap-1 px-3 py-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
+          <button onClick={handleAddCategory} className="flex items-center gap-1 px-3 py-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors whitespace-nowrap">
             <Plus className="w-4 h-4" strokeWidth={3} /> {lang === 'th' ? 'เพิ่มประเภท' : 'Add Category'}
           </button>
         </div>

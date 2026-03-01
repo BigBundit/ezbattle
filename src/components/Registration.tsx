@@ -181,7 +181,7 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
                 className="w-full cartoon-input"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block font-bold text-slate-700 mb-1">{t('numberOfCourts', lang)}</label>
                 <input
@@ -209,7 +209,7 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
         {/* Format Selection */}
         <div className="mb-10">
           <h3 className="cartoon-title text-lg mb-4 text-center text-slate-900">{t('chooseGameMode', lang)}</h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <button
               onClick={() => setFormat('round_robin')}
               className={`p-4 rounded-2xl border-4 border-slate-900 flex flex-col items-center gap-2 transition-all duration-200 ${

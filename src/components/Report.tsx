@@ -112,46 +112,46 @@ export default function Report({ players, matches, format, lang, config }: Props
         </button>
       </div>
       
-      <div id="tournament-report" className="space-y-12 p-8 bg-slate-50 rounded-3xl">
-        <div className="cartoon-card p-12 text-center bg-green-400 relative overflow-hidden">
+      <div id="tournament-report" className="space-y-8 sm:space-y-12 p-4 sm:p-8 bg-slate-50 rounded-3xl">
+        <div className="cartoon-card p-6 sm:p-12 text-center bg-green-400 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
         
         <div className="relative z-10">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full border-4 border-slate-900 shadow-[4px_4px_0px_#0f172a] mb-6 transform -rotate-6">
-            <Trophy className="w-12 h-12 text-yellow-400" strokeWidth={2.5} />
+          <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white rounded-full border-4 border-slate-900 shadow-[4px_4px_0px_#0f172a] mb-6 transform -rotate-6">
+            <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-400" strokeWidth={2.5} />
           </div>
-          <h2 className="text-4xl cartoon-title text-slate-900 mb-2 drop-shadow-[2px_2px_0px_#fff]">{config.name} {t('winners', lang)}!</h2>
-          <p className="text-slate-800 font-bold mb-12">{t('tournamentCompleted', lang)}</p>
+          <h2 className="text-2xl sm:text-4xl cartoon-title text-slate-900 mb-2 drop-shadow-[2px_2px_0px_#fff]">{config.name} {t('winners', lang)}!</h2>
+          <p className="text-slate-800 font-bold mb-8 sm:mb-12">{t('tournamentCompleted', lang)}</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Runner Up */}
-            <div className="order-2 md:order-1 flex flex-col items-center p-6 bg-white border-4 border-slate-900 rounded-2xl shadow-[4px_4px_0px_#0f172a] transform rotate-2">
-              <Medal className="w-10 h-10 text-slate-400 mb-2" strokeWidth={2.5} />
-              <div className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">{t('runnerUp', lang)}</div>
-              <div className="text-xl cartoon-title text-slate-900">{getPlayerName(runnerUpId)}</div>
+            <div className="order-2 md:order-1 flex flex-col items-center p-4 sm:p-6 bg-white border-4 border-slate-900 rounded-2xl shadow-[4px_4px_0px_#0f172a] transform md:rotate-2">
+              <Medal className="w-8 h-8 sm:w-10 sm:h-10 text-slate-400 mb-2" strokeWidth={2.5} />
+              <div className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">{t('runnerUp', lang)}</div>
+              <div className="text-lg sm:text-xl cartoon-title text-slate-900">{getPlayerName(runnerUpId)}</div>
             </div>
 
             {/* Champion */}
-            <div className="order-1 md:order-2 flex flex-col items-center p-8 bg-white border-4 border-slate-900 rounded-2xl shadow-[8px_8px_0px_#0f172a] transform md:-translate-y-6 scale-110 z-10">
-              <Trophy className="w-14 h-14 text-yellow-400 mb-2" strokeWidth={2.5} />
-              <div className="text-sm font-bold text-yellow-500 uppercase tracking-wider mb-2">{t('champion', lang)}</div>
-              <div className="text-3xl cartoon-title text-slate-900">{getPlayerName(championId)}</div>
+            <div className="order-1 md:order-2 flex flex-col items-center p-6 sm:p-8 bg-white border-4 border-slate-900 rounded-2xl shadow-[8px_8px_0px_#0f172a] transform md:-translate-y-6 md:scale-110 z-10">
+              <Trophy className="w-12 h-12 sm:w-14 sm:h-14 text-yellow-400 mb-2" strokeWidth={2.5} />
+              <div className="text-xs sm:text-sm font-bold text-yellow-500 uppercase tracking-wider mb-2">{t('champion', lang)}</div>
+              <div className="text-2xl sm:text-3xl cartoon-title text-slate-900">{getPlayerName(championId)}</div>
             </div>
 
             {/* Third Place */}
-            <div className="order-3 flex flex-col items-center p-6 bg-white border-4 border-slate-900 rounded-2xl shadow-[4px_4px_0px_#0f172a] transform -rotate-2">
-              <Award className="w-10 h-10 text-amber-600 mb-2" strokeWidth={2.5} />
-              <div className="text-sm font-bold text-amber-600 uppercase tracking-wider mb-2">{t('thirdPlace', lang)}</div>
-              <div className="text-xl cartoon-title text-slate-900">{thirdPlaceCandidates.length > 0 ? thirdPlaceCandidates.map(id => getPlayerName(id)).join(' & ') : 'N/A'}</div>
+            <div className="order-3 flex flex-col items-center p-4 sm:p-6 bg-white border-4 border-slate-900 rounded-2xl shadow-[4px_4px_0px_#0f172a] transform md:-rotate-2">
+              <Award className="w-8 h-8 sm:w-10 sm:h-10 text-amber-600 mb-2" strokeWidth={2.5} />
+              <div className="text-xs sm:text-sm font-bold text-amber-600 uppercase tracking-wider mb-2">{t('thirdPlace', lang)}</div>
+              <div className="text-lg sm:text-xl cartoon-title text-slate-900">{thirdPlaceCandidates.length > 0 ? thirdPlaceCandidates.map(id => getPlayerName(id)).join(' & ') : 'N/A'}</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="cartoon-card p-8 bg-white">
-        <div className="flex items-center gap-3 mb-8 border-b-4 border-slate-900 pb-4">
-          <History className="w-6 h-6 text-slate-900" strokeWidth={2.5} />
-          <h3 className="cartoon-title text-2xl text-slate-900">Match History</h3>
+      <div className="cartoon-card p-4 sm:p-8 bg-white">
+        <div className="flex items-center gap-3 mb-6 sm:mb-8 border-b-4 border-slate-900 pb-4">
+          <History className="w-5 h-5 sm:w-6 sm:h-6 text-slate-900" strokeWidth={2.5} />
+          <h3 className="cartoon-title text-xl sm:text-2xl text-slate-900">Match History</h3>
         </div>
 
         <div className="space-y-4">
@@ -163,25 +163,25 @@ export default function Report({ players, matches, format, lang, config }: Props
               const isP2Winner = match.score2 > match.score1;
 
               return (
-                <div key={match.id} className="flex items-center justify-between p-4 bg-slate-50 border-4 border-slate-900 rounded-xl shadow-[4px_4px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#0f172a] transition-all">
-                  <div className="flex-1 text-right">
-                    <span className={`font-bold text-lg ${isP1Winner ? 'text-blue-600' : 'text-slate-500'}`}>
+                <div key={match.id} className="flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 bg-slate-50 border-4 border-slate-900 rounded-xl shadow-[4px_4px_0px_#0f172a] hover:-translate-y-1 hover:shadow-[6px_6px_0px_#0f172a] transition-all gap-3 sm:gap-0">
+                  <div className="w-full sm:flex-1 text-center sm:text-right">
+                    <span className={`font-bold text-base sm:text-lg ${isP1Winner ? 'text-blue-600' : 'text-slate-500'}`}>
                       {getPlayerName(match.player1Id)}
                     </span>
                   </div>
                   
-                  <div className="px-6 flex items-center gap-3">
-                    <span className={`text-xl cartoon-title min-w-[3rem] px-2 py-1 text-center rounded-lg border-2 border-slate-900 ${isP1Winner ? 'bg-yellow-300 text-slate-900' : 'bg-white text-slate-600'}`}>
+                  <div className="px-2 sm:px-6 flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto">
+                    <span className={`text-lg sm:text-xl cartoon-title min-w-[2.5rem] sm:min-w-[3rem] px-2 py-1 text-center rounded-lg border-2 border-slate-900 ${isP1Winner ? 'bg-yellow-300 text-slate-900' : 'bg-white text-slate-600'}`}>
                       {match.score1}
                     </span>
-                    <span className="text-slate-400 font-bold text-sm">{t('vs', lang)}</span>
-                    <span className={`text-xl cartoon-title min-w-[3rem] px-2 py-1 text-center rounded-lg border-2 border-slate-900 ${isP2Winner ? 'bg-yellow-300 text-slate-900' : 'bg-white text-slate-600'}`}>
+                    <span className="text-slate-400 font-bold text-xs sm:text-sm">{t('vs', lang)}</span>
+                    <span className={`text-lg sm:text-xl cartoon-title min-w-[2.5rem] sm:min-w-[3rem] px-2 py-1 text-center rounded-lg border-2 border-slate-900 ${isP2Winner ? 'bg-yellow-300 text-slate-900' : 'bg-white text-slate-600'}`}>
                       {match.score2}
                     </span>
                   </div>
 
-                  <div className="flex-1 text-left">
-                    <span className={`font-bold text-lg ${isP2Winner ? 'text-blue-600' : 'text-slate-500'}`}>
+                  <div className="w-full sm:flex-1 text-center sm:text-left">
+                    <span className={`font-bold text-base sm:text-lg ${isP2Winner ? 'text-blue-600' : 'text-slate-500'}`}>
                       {getPlayerName(match.player2Id)}
                     </span>
                   </div>
