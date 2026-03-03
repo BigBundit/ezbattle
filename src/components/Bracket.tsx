@@ -200,9 +200,9 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
   const isCurrentRoundFinished = currentRoundMatches.every(m => m.isBye || (m.score1 !== '' && m.score2 !== ''));
 
   return (
-    <div className="space-y-8 sm:space-y-12">
+    <div className="space-y-8 sm:space-y-12 w-full overflow-x-hidden">
       {format === 'round_robin' && (
-        <div id="leaderboard" className="dash-card p-4 sm:p-8 overflow-x-auto relative">
+        <div id="leaderboard" className="dash-card p-4 sm:p-8 overflow-x-auto relative w-full">
           <div className="flex justify-between items-center mb-6">
             <h3 className="font-bold text-xl sm:text-2xl text-[#171717] mx-auto flex items-center gap-2">
               <Trophy className="w-6 h-6 text-[#22c55e]" /> {t('standings', lang)}
@@ -269,20 +269,20 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
         </div>
       )}
 
-      <div className="dash-card p-4 sm:p-8">
+      <div className="dash-card p-4 sm:p-8 w-full overflow-hidden">
         <div className="mb-6 sm:mb-8 w-full max-w-md mx-auto flex items-center bg-neutral-50 border border-neutral-200 rounded-full overflow-hidden px-4 focus-within:border-[#22c55e] focus-within:ring-4 focus-within:ring-[#22c55e]/10 transition-all">
           <Search className="text-neutral-400 w-5 h-5 flex-shrink-0" strokeWidth={2} />
           <input 
             type="text" 
             placeholder={lang === 'th' ? 'ค้นหาผู้เล่น...' : 'Search player...'}
-            className="w-full py-3 px-3 outline-none text-[#171717] font-medium bg-transparent placeholder-neutral-400"
+            className="w-full py-3 px-3 outline-none text-[#171717] font-medium bg-transparent placeholder-neutral-400 min-w-0"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        <div className="overflow-x-auto pb-8 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div className="flex gap-4 sm:gap-8 min-w-max">
+        <div className="overflow-x-auto pb-8 w-full">
+          <div className="flex gap-4 sm:gap-8 min-w-max pr-4 sm:pr-0">
             {rounds.map(round => {
               const roundMatches = filteredMatches.filter(m => m.round === round).sort((a, b) => a.matchOrder - b.matchOrder);
               if (roundMatches.length === 0) return null;

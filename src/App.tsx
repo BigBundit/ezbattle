@@ -448,7 +448,7 @@ export default function App() {
         )}
       </header>
 
-      <div className="px-4 sm:px-10 pb-10 flex flex-col lg:flex-row gap-6 sm:gap-8 flex-1 overflow-y-auto">
+      <div className="px-4 sm:px-10 pb-10 flex flex-col lg:flex-row gap-6 sm:gap-8 flex-1 overflow-y-auto overflow-x-hidden">
         <main className="flex-1 w-full lg:w-[75%] flex flex-col min-w-0">
           {/* Welcome Header */}
           <div className="mb-6 sm:mb-8">
@@ -463,8 +463,8 @@ export default function App() {
           </div>
 
           {/* Stepper */}
-          <div className="flex mb-8 overflow-x-auto pb-2">
-            <div className="flex items-center gap-2 bg-white/60 p-1.5 rounded-full border border-white shadow-sm">
+          <div className="flex mb-8 overflow-x-auto pb-2 w-full">
+            <div className="flex items-center gap-2 bg-white/60 p-1.5 rounded-full border border-white shadow-sm min-w-max">
               <Step 
                 number="1"
                 label={t('signUp', lang)} 
@@ -525,7 +525,7 @@ export default function App() {
         </main>
 
         {/* Advertisement Space */}
-        <aside className="w-full lg:w-[25%] flex flex-col gap-4">
+        <aside className="w-full lg:w-[25%] flex flex-col gap-4 min-w-0">
           <AdSlider 
             ads={[
               { src: "/ads01.png", href: "https://line.me/ti/p/OsbSG1pr0g", alt: "Advertisement 1" },

@@ -112,7 +112,7 @@ export default function Report({ players, matches, format, lang, config }: Props
         </button>
       </div>
       
-      <div id="tournament-report" className="space-y-6 sm:space-y-12 p-3 sm:p-8 bg-white rounded-3xl border border-neutral-200">
+      <div id="tournament-report" className="space-y-6 sm:space-y-12 p-3 sm:p-8 bg-white rounded-3xl border border-neutral-200 w-full overflow-hidden">
         <div className="dash-card p-6 sm:p-12 text-center bg-gradient-to-br from-[#22c55e] to-[#16a34a] relative overflow-hidden border-none shadow-lg">
           <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
           

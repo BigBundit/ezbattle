@@ -163,7 +163,7 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
   };
 
   return (
-    <div className="max-w-2xl mx-auto dash-card">
+    <div className="max-w-2xl mx-auto dash-card w-full overflow-hidden">
       <div className="p-6 sm:p-8 border-b border-neutral-800 bg-[#171717] rounded-t-[2rem] text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
         <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">{t('whosPlaying', lang)}</h2>
