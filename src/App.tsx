@@ -449,7 +449,7 @@ export default function App() {
       </header>
 
       <div className="px-4 sm:px-10 pb-10 flex flex-col lg:flex-row gap-6 sm:gap-8 flex-1 overflow-y-auto">
-        <main className="flex-1 w-full lg:w-[75%] flex flex-col">
+        <main className="flex-1 w-full lg:w-[75%] flex flex-col min-w-0">
           {/* Welcome Header */}
           <div className="mb-6 sm:mb-8">
             <h2 className="text-2xl sm:text-4xl font-bold text-[#171717] mb-1 sm:mb-2 tracking-tight">

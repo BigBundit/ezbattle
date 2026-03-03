@@ -270,7 +270,7 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
       )}
 
       <div className="dash-card p-4 sm:p-8">
-        <div className="mb-6 sm:mb-8 max-w-md mx-auto flex items-center bg-neutral-50 border border-neutral-200 rounded-full overflow-hidden px-4 focus-within:border-[#22c55e] focus-within:ring-4 focus-within:ring-[#22c55e]/10 transition-all">
+        <div className="mb-6 sm:mb-8 w-full max-w-md mx-auto flex items-center bg-neutral-50 border border-neutral-200 rounded-full overflow-hidden px-4 focus-within:border-[#22c55e] focus-within:ring-4 focus-within:ring-[#22c55e]/10 transition-all">
           <Search className="text-neutral-400 w-5 h-5 flex-shrink-0" strokeWidth={2} />
           <input 
             type="text" 
@@ -281,14 +281,14 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
           />
         </div>
 
-        <div className="overflow-x-auto pb-8">
-          <div className="flex gap-8 min-w-max">
+        <div className="overflow-x-auto pb-8 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div className="flex gap-4 sm:gap-8 min-w-max">
             {rounds.map(round => {
               const roundMatches = filteredMatches.filter(m => m.round === round).sort((a, b) => a.matchOrder - b.matchOrder);
               if (roundMatches.length === 0) return null;
               
               return (
-                <div key={round} id={`round-${round}`} className="flex flex-col justify-start gap-6 w-72 p-5 bg-neutral-50 rounded-3xl border border-neutral-100 relative">
+                <div key={round} id={`round-${round}`} className="flex flex-col justify-start gap-4 sm:gap-6 w-[260px] sm:w-72 p-4 sm:p-5 bg-neutral-50 rounded-3xl border border-neutral-100 relative">
                   <div className="text-center flex flex-col items-center gap-3 mb-2">
                     <span className="inline-block bg-[#171717] text-white font-bold px-4 py-1.5 rounded-full text-sm shadow-sm">
                       {format === 'knockout' ? (
@@ -513,13 +513,13 @@ const MatchCard: React.FC<{
       </div>
 
       {isEditing ? (
-        <div className="p-4 pt-5 space-y-4">
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player1Id)}</span>
-            <div className="flex gap-2 items-center">
+        <div className="p-3 sm:p-4 pt-4 sm:pt-5 space-y-3 sm:space-y-4">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <span className="text-xs sm:text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player1Id)}</span>
+            <div className="flex gap-1.5 sm:gap-2 items-center">
               <button 
                 onClick={() => handleWinByBye(match.player1Id)}
-                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-1.5 sm:px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
                 title={lang === 'th' ? 'ชนะบาย' : 'Win by Bye'}
               >
                 {lang === 'th' ? 'บาย' : 'BYE'}
@@ -528,7 +528,7 @@ const MatchCard: React.FC<{
                 type="number" 
                 value={score1} 
                 onChange={e => setScore1(e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-16 px-2 py-1.5 text-center dash-input !rounded-lg"
+                className="w-12 sm:w-16 px-1 sm:px-2 py-1.5 text-center dash-input !rounded-lg text-sm"
                 placeholder="0"
               />
             </div>
@@ -537,12 +537,12 @@ const MatchCard: React.FC<{
             <div className="absolute inset-x-0 h-[1px] bg-neutral-100"></div>
             <span className="relative bg-white px-2 text-[10px] font-bold text-neutral-300 uppercase tracking-widest">{t('vs', lang)}</span>
           </div>
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player2Id)}</span>
-            <div className="flex gap-2 items-center">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <span className="text-xs sm:text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player2Id)}</span>
+            <div className="flex gap-1.5 sm:gap-2 items-center">
               <button 
                 onClick={() => handleWinByBye(match.player2Id)}
-                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-1.5 sm:px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
                 title={lang === 'th' ? 'ชนะบาย' : 'Win by Bye'}
               >
                 {lang === 'th' ? 'บาย' : 'BYE'}
@@ -551,7 +551,7 @@ const MatchCard: React.FC<{
                 type="number" 
                 value={score2} 
                 onChange={e => setScore2(e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-16 px-2 py-1.5 text-center dash-input !rounded-lg"
+                className="w-12 sm:w-16 px-1 sm:px-2 py-1.5 text-center dash-input !rounded-lg text-sm"
                 placeholder="0"
               />
             </div>
@@ -567,7 +567,7 @@ const MatchCard: React.FC<{
         </div>
       ) : (
         <div 
-          className={`p-4 pt-5 cursor-pointer group ${!isPlayable ? 'cursor-not-allowed' : ''}`}
+          className={`p-3 sm:p-4 pt-4 sm:pt-5 cursor-pointer group ${!isPlayable ? 'cursor-not-allowed' : ''}`}
           onClick={() => {
             if (isPlayable) {
               setScore1(match.score1);
@@ -577,8 +577,8 @@ const MatchCard: React.FC<{
           }}
         >
           <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player1Id ? 'text-[#22c55e]' : 'text-neutral-600'}`}>
-            <span className={`text-sm font-semibold truncate pr-2 ${match.winnerId === match.player1Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player1Id)}</span>
-            <span className={`text-base font-bold min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score1 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
+            <span className={`text-xs sm:text-sm font-semibold truncate pr-2 ${match.winnerId === match.player1Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player1Id)}</span>
+            <span className={`text-sm sm:text-base font-bold min-w-[2rem] sm:min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score1 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
               {match.score1 !== '' ? match.score1 : '-'}
             </span>
           </div>
@@ -587,8 +587,8 @@ const MatchCard: React.FC<{
             <span className="relative bg-white px-2 text-[10px] font-bold text-neutral-300 uppercase tracking-widest">{t('vs', lang)}</span>
           </div>
           <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player2Id ? 'text-[#22c55e]' : 'text-neutral-600'}`}>
-            <span className={`text-sm font-semibold truncate pr-2 ${match.winnerId === match.player2Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player2Id)}</span>
-            <span className={`text-base font-bold min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score2 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
+            <span className={`text-xs sm:text-sm font-semibold truncate pr-2 ${match.winnerId === match.player2Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player2Id)}</span>
+            <span className={`text-sm sm:text-base font-bold min-w-[2rem] sm:min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score2 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
               {match.score2 !== '' ? match.score2 : '-'}
             </span>
           </div>
