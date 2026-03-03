@@ -164,15 +164,15 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
 
   return (
     <div className="max-w-2xl mx-auto dash-card">
-      <div className="p-8 border-b border-neutral-800 bg-[#171717] rounded-t-[1.5rem] text-center relative overflow-hidden">
+      <div className="p-6 sm:p-8 border-b border-neutral-800 bg-[#171717] rounded-t-[2rem] text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
-        <h2 className="text-3xl font-bold text-white tracking-tight relative z-10">{t('whosPlaying', lang)}</h2>
-        <p className="text-neutral-400 font-medium mt-2 relative z-10">{t('addFriends', lang)}</p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight relative z-10">{t('whosPlaying', lang)}</h2>
+        <p className="text-neutral-400 font-medium mt-1 sm:mt-2 relative z-10 text-sm sm:text-base">{t('addFriends', lang)}</p>
       </div>
 
-      <div className="p-8 bg-white rounded-b-[1.5rem]">
+      <div className="p-4 sm:p-8 bg-white rounded-b-[2rem]">
         {/* Tournament Settings */}
-        <div className="mb-10 p-6 bg-neutral-50 border border-neutral-100 rounded-2xl">
+        <div className="mb-8 sm:mb-10 p-4 sm:p-6 bg-neutral-50 border border-neutral-100 rounded-2xl">
           <div className="flex items-center gap-2 mb-4">
             <Settings className="w-5 h-5 text-neutral-500" />
             <h3 className="font-bold text-lg text-[#171717]">Tournament Settings</h3>

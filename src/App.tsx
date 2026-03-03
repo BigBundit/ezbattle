@@ -270,14 +270,14 @@ export default function App() {
   if (!activeCategory) return null;
 
   return (
-    <div className="w-full max-w-[1600px] min-h-[90vh] bg-[#f8faf9] rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col relative border border-white/60" style={{ backgroundImage: 'radial-gradient(circle at top left, #e6f2eb 0%, #f8faf9 100%)' }}>
-      <header className="px-6 sm:px-10 py-6 flex items-center justify-between z-50">
-        <div className="flex items-center gap-3">
-          <div className="bg-white p-2.5 rounded-2xl text-[#171717] shadow-sm border border-neutral-100 flex items-center justify-center">
-            <Trophy className="w-6 h-6 text-[#22c55e]" strokeWidth={2.5} />
+    <div className="w-full max-w-[1600px] min-h-screen sm:min-h-[90vh] bg-[#f8faf9] sm:rounded-[2.5rem] shadow-none sm:shadow-2xl overflow-hidden flex flex-col relative sm:border border-white/60" style={{ backgroundImage: 'radial-gradient(circle at top left, #e6f2eb 0%, #f8faf9 100%)' }}>
+      <header className="px-4 sm:px-10 py-4 sm:py-6 flex items-center justify-between z-50 relative">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="bg-white p-2 sm:p-2.5 rounded-xl sm:rounded-2xl text-[#171717] shadow-sm border border-neutral-100 flex items-center justify-center">
+            <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-[#22c55e]" strokeWidth={2.5} />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-[#171717] tracking-tight">{config.name}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-[#171717] tracking-tight">{config.name}</h1>
           </div>
         </div>
         
@@ -385,74 +385,74 @@ export default function App() {
         >
           {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="sm:hidden bg-white/95 backdrop-blur-md px-4 py-6 flex flex-col gap-4 absolute w-full left-0 top-full z-40 border-b border-neutral-100 shadow-lg">
+            <div className="flex flex-col gap-2">
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'ประเภทการแข่งขัน' : 'Categories'}</span>
+              <div className="flex flex-wrap gap-2">
+                {categories.map(cat => (
+                  <div 
+                    key={cat.id} 
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all text-sm font-medium ${activeCategoryId === cat.id ? 'bg-[#171717] text-white shadow-md' : 'bg-neutral-50 text-neutral-600 border border-neutral-200'}`} 
+                    onClick={() => {
+                      setActiveCategoryId(cat.id);
+                      setIsMobileMenuOpen(false);
+                    }}
+                  >
+                    {cat.name}
+                  </div>
+                ))}
+                <button onClick={() => { handleAddCategory(); setIsMobileMenuOpen(false); }} className="flex items-center justify-center px-4 py-2 rounded-full bg-green-50 text-[#22c55e] border border-green-100 text-sm font-medium">
+                  <Plus className="w-4 h-4 mr-1" /> {lang === 'th' ? 'เพิ่ม' : 'Add'}
+                </button>
+              </div>
+            </div>
+
+            <div className="w-full h-[1px] bg-neutral-100 my-2"></div>
+
+            <div className="flex flex-col gap-2">
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'จัดการข้อมูล' : 'Data Management'}</span>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={() => { handleExport(); setIsMobileMenuOpen(false); }} className="dash-button dash-button-outline py-2.5" title="Export">
+                  <Download className="w-4 h-4" strokeWidth={2} /> {lang === 'th' ? 'ส่งออก' : 'Export'}
+                </button>
+                <button onClick={() => { fileInputRef.current?.click(); setIsMobileMenuOpen(false); }} className="dash-button dash-button-outline py-2.5" title="Import">
+                  <Upload className="w-4 h-4" strokeWidth={2} /> {lang === 'th' ? 'นำเข้า' : 'Import'}
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-2 mt-2">
+              <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'ตั้งค่า' : 'Settings'}</span>
+              <button 
+                onClick={() => { setLang(lang === 'en' ? 'th' : 'en'); setIsMobileMenuOpen(false); }}
+                className="dash-button dash-button-outline py-2.5 w-full"
+              >
+                <Languages className="w-4 h-4" strokeWidth={2} />
+                {lang === 'en' ? 'เปลี่ยนเป็นภาษาไทย' : 'Switch to English'}
+              </button>
+            </div>
+
+            {activeCategory.tournamentState !== 'registration' && (
+              <button 
+                onClick={() => { handleReset(); setIsMobileMenuOpen(false); }}
+                className="dash-button bg-red-50 hover:bg-red-100 text-red-600 w-full py-2.5 mt-2 border border-red-100"
+              >
+                <RefreshCw className="w-4 h-4" strokeWidth={2} />
+                <span>{t('startOver', lang)}</span>
+              </button>
+            )}
+          </div>
+        )}
       </header>
 
-      {/* Mobile Menu Dropdown */}
-      {isMobileMenuOpen && (
-        <div className="sm:hidden bg-white/95 backdrop-blur-md px-6 py-6 flex flex-col gap-4 absolute w-full left-0 top-[88px] z-40 border-b border-neutral-100 shadow-lg">
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'ประเภทการแข่งขัน' : 'Categories'}</span>
-            <div className="flex flex-wrap gap-2">
-              {categories.map(cat => (
-                <div 
-                  key={cat.id} 
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all text-sm font-medium ${activeCategoryId === cat.id ? 'bg-[#171717] text-white shadow-md' : 'bg-neutral-50 text-neutral-600 border border-neutral-200'}`} 
-                  onClick={() => {
-                    setActiveCategoryId(cat.id);
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  {cat.name}
-                </div>
-              ))}
-              <button onClick={() => { handleAddCategory(); setIsMobileMenuOpen(false); }} className="flex items-center justify-center px-4 py-2 rounded-full bg-green-50 text-[#22c55e] border border-green-100 text-sm font-medium">
-                <Plus className="w-4 h-4 mr-1" /> {lang === 'th' ? 'เพิ่ม' : 'Add'}
-              </button>
-            </div>
-          </div>
-
-          <div className="w-full h-[1px] bg-neutral-100 my-2"></div>
-
-          <div className="flex flex-col gap-2">
-            <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'จัดการข้อมูล' : 'Data Management'}</span>
-            <div className="grid grid-cols-2 gap-2">
-              <button onClick={() => { handleExport(); setIsMobileMenuOpen(false); }} className="dash-button dash-button-outline py-2.5" title="Export">
-                <Download className="w-4 h-4" strokeWidth={2} /> {lang === 'th' ? 'ส่งออก' : 'Export'}
-              </button>
-              <button onClick={() => { fileInputRef.current?.click(); setIsMobileMenuOpen(false); }} className="dash-button dash-button-outline py-2.5" title="Import">
-                <Upload className="w-4 h-4" strokeWidth={2} /> {lang === 'th' ? 'นำเข้า' : 'Import'}
-              </button>
-            </div>
-          </div>
-          
-          <div className="flex flex-col gap-2 mt-2">
-            <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider">{lang === 'th' ? 'ตั้งค่า' : 'Settings'}</span>
-            <button 
-              onClick={() => { setLang(lang === 'en' ? 'th' : 'en'); setIsMobileMenuOpen(false); }}
-              className="dash-button dash-button-outline py-2.5 w-full"
-            >
-              <Languages className="w-4 h-4" strokeWidth={2} />
-              {lang === 'en' ? 'เปลี่ยนเป็นภาษาไทย' : 'Switch to English'}
-            </button>
-          </div>
-
-          {activeCategory.tournamentState !== 'registration' && (
-            <button 
-              onClick={() => { handleReset(); setIsMobileMenuOpen(false); }}
-              className="dash-button bg-red-50 hover:bg-red-100 text-red-600 w-full py-2.5 mt-2 border border-red-100"
-            >
-              <RefreshCw className="w-4 h-4" strokeWidth={2} />
-              <span>{t('startOver', lang)}</span>
-            </button>
-          )}
-        </div>
-      )}
-
-      <div className="px-6 sm:px-10 pb-10 flex flex-col lg:flex-row gap-8 flex-1 overflow-y-auto">
+      <div className="px-4 sm:px-10 pb-10 flex flex-col lg:flex-row gap-6 sm:gap-8 flex-1 overflow-y-auto">
         <main className="flex-1 w-full lg:w-[75%] flex flex-col">
           {/* Welcome Header */}
-          <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#171717] mb-2 tracking-tight">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#171717] mb-1 sm:mb-2 tracking-tight">
               {activeCategory.tournamentState === 'registration' ? (lang === 'th' ? 'ยินดีต้อนรับสู่ EzBattle' : 'Welcome to EzBattle') : 
                activeCategory.tournamentState === 'active' ? (lang === 'th' ? 'กำลังแข่งขัน' : 'Tournament in Progress') :
                (lang === 'th' ? 'สรุปผลการแข่งขัน' : 'Tournament Results')}
@@ -555,8 +555,8 @@ export default function App() {
       {/* Add Category Modal */}
       {showAddCategoryModal && (
         <div className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
-          <div className="dash-card p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-6 text-[#171717] tracking-tight">
+          <div className="dash-card p-6 sm:p-8 max-w-md w-full">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-[#171717] tracking-tight">
               {lang === 'th' ? 'เพิ่มประเภทการแข่งขัน' : 'Add Category'}
             </h2>
             <form onSubmit={handleAddCategorySubmit}>
@@ -566,7 +566,7 @@ export default function App() {
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
                 placeholder={lang === 'th' ? 'เช่น ชายเดี่ยว, หญิงคู่' : 'e.g., Men Singles'}
-                className="dash-input mb-8"
+                className="dash-input mb-6 sm:mb-8"
               />
               <div className="flex justify-end gap-3">
                 <button
@@ -575,14 +575,14 @@ export default function App() {
                     setShowAddCategoryModal(false);
                     setNewCategoryName('');
                   }}
-                  className="dash-button dash-button-outline px-6"
+                  className="dash-button dash-button-outline px-4 sm:px-6"
                 >
                   {lang === 'th' ? 'ยกเลิก' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={!newCategoryName.trim()}
-                  className="dash-button px-8"
+                  className="dash-button px-6 sm:px-8"
                 >
                   {lang === 'th' ? 'เพิ่ม' : 'Add'}
                 </button>
@@ -595,23 +595,23 @@ export default function App() {
       {/* Delete Category Modal */}
       {categoryToDelete && (
         <div className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
-          <div className="dash-card p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4 text-[#171717] tracking-tight">
+          <div className="dash-card p-6 sm:p-8 max-w-md w-full">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-[#171717] tracking-tight">
               {lang === 'th' ? 'ลบประเภทการแข่งขัน' : 'Delete Category'}
             </h2>
-            <p className="text-neutral-500 text-base mb-8 leading-relaxed">
+            <p className="text-neutral-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">
               {lang === 'th' ? 'คุณแน่ใจหรือไม่ที่จะลบประเภทการแข่งขันนี้? ข้อมูลทั้งหมดในประเภทนี้จะถูกลบ' : 'Are you sure you want to delete this category? All data in this category will be lost.'}
             </p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setCategoryToDelete(null)}
-                className="dash-button dash-button-outline px-6"
+                className="dash-button dash-button-outline px-4 sm:px-6"
               >
                 {lang === 'th' ? 'ยกเลิก' : 'Cancel'}
               </button>
               <button
                 onClick={confirmDeleteCategory}
-                className="dash-button bg-red-500 hover:bg-red-600 px-8"
+                className="dash-button bg-red-500 hover:bg-red-600 px-6 sm:px-8"
               >
                 {lang === 'th' ? 'ลบ' : 'Delete'}
               </button>
@@ -623,23 +623,23 @@ export default function App() {
       {/* Reset Confirm Modal */}
       {showResetConfirm && (
         <div className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
-          <div className="dash-card p-8 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4 text-[#171717] tracking-tight">
+          <div className="dash-card p-6 sm:p-8 max-w-md w-full">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-[#171717] tracking-tight">
               {lang === 'th' ? 'เริ่มใหม่' : 'Start Over'}
             </h2>
-            <p className="text-neutral-500 text-base mb-8 leading-relaxed">
+            <p className="text-neutral-500 text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">
               {t('confirmReset', lang)}
             </p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="dash-button dash-button-outline px-6"
+                className="dash-button dash-button-outline px-4 sm:px-6"
               >
                 {lang === 'th' ? 'ยกเลิก' : 'Cancel'}
               </button>
               <button
                 onClick={confirmReset}
-                className="dash-button bg-red-500 hover:bg-red-600 px-8"
+                className="dash-button bg-red-500 hover:bg-red-600 px-6 sm:px-8"
               >
                 {lang === 'th' ? 'ตกลง' : 'Confirm'}
               </button>
