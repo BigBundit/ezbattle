@@ -21,12 +21,19 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
     e.preventDefault();
     if (!name.trim()) return;
     
-    const newPlayer: Participant = {
-      id: `p_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      name: name.trim()
-    };
+    const newNames = name
+      .split(/\r?\n|\t|,/) // Split by newline, tab, or comma
+      .map(n => n.trim())
+      .filter(n => n.length > 0);
+
+    if (newNames.length === 0) return;
+
+    const newPlayers: Participant[] = newNames.map((n, index) => ({
+      id: `p_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`,
+      name: n
+    }));
     
-    setPlayers([...players, newPlayer]);
+    setPlayers([...players, ...newPlayers]);
     setName('');
   };
 
@@ -156,50 +163,50 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
   };
 
   return (
-    <div className="max-w-2xl mx-auto cartoon-card">
-      <div className="p-8 border-b-4 border-slate-900 bg-green-400 rounded-t-[1.25rem] text-center relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full opacity-20" style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
-        <h2 className="text-4xl cartoon-title text-slate-900 relative z-10 drop-shadow-[2px_2px_0px_#fff]">{t('whosPlaying', lang)}</h2>
-        <p className="text-slate-800 font-bold mt-2 relative z-10">{t('addFriends', lang)}</p>
+    <div className="max-w-2xl mx-auto dash-card">
+      <div className="p-8 border-b border-neutral-800 bg-[#171717] rounded-t-[1.5rem] text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10" style={{ backgroundImage: 'radial-gradient(#fff 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
+        <h2 className="text-3xl font-bold text-white tracking-tight relative z-10">{t('whosPlaying', lang)}</h2>
+        <p className="text-neutral-400 font-medium mt-2 relative z-10">{t('addFriends', lang)}</p>
       </div>
 
-      <div className="p-8 bg-white rounded-b-[1.25rem]">
+      <div className="p-8 bg-white rounded-b-[1.5rem]">
         {/* Tournament Settings */}
-        <div className="mb-10 p-6 bg-slate-50 border-4 border-slate-900 rounded-2xl shadow-[4px_4px_0px_#0f172a]">
+        <div className="mb-10 p-6 bg-neutral-50 border border-neutral-100 rounded-2xl">
           <div className="flex items-center gap-2 mb-4">
-            <Settings className="w-6 h-6 text-slate-900" />
-            <h3 className="cartoon-title text-lg text-slate-900">Tournament Settings</h3>
+            <Settings className="w-5 h-5 text-neutral-500" />
+            <h3 className="font-bold text-lg text-[#171717]">Tournament Settings</h3>
           </div>
           
           <div className="space-y-4">
             <div>
-              <label className="block font-bold text-slate-700 mb-1">{t('tournamentName', lang)}</label>
+              <label className="block font-medium text-sm text-neutral-600 mb-1.5">{t('tournamentName', lang)}</label>
               <input
                 type="text"
                 value={config.name}
                 onChange={(e) => setConfig({ ...config, name: e.target.value })}
-                className="w-full cartoon-input"
+                className="dash-input"
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">{t('numberOfCourts', lang)}</label>
+                <label className="block font-medium text-sm text-neutral-600 mb-1.5">{t('numberOfCourts', lang)}</label>
                 <input
                   type="number"
                   min="1"
                   value={config.numberOfCourts}
                   onChange={(e) => setConfig({ ...config, numberOfCourts: parseInt(e.target.value) || 1 })}
-                  className="w-full cartoon-input"
+                  className="dash-input"
                 />
               </div>
               <div>
-                <label className="block font-bold text-slate-700 mb-1">{t('matchDuration', lang)}</label>
+                <label className="block font-medium text-sm text-neutral-600 mb-1.5">{t('matchDuration', lang)}</label>
                 <input
                   type="number"
                   min="1"
                   value={config.matchDuration}
                   onChange={(e) => setConfig({ ...config, matchDuration: parseInt(e.target.value) || 30 })}
-                  className="w-full cartoon-input"
+                  className="dash-input"
                 />
               </div>
             </div>
@@ -208,100 +215,106 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
 
         {/* Format Selection */}
         <div className="mb-10">
-          <h3 className="cartoon-title text-lg mb-4 text-center text-slate-900">{t('chooseGameMode', lang)}</h3>
+          <h3 className="font-bold text-lg mb-4 text-center text-[#171717]">{t('chooseGameMode', lang)}</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <button
               onClick={() => setFormat('round_robin')}
-              className={`p-4 rounded-2xl border-4 border-slate-900 flex flex-col items-center gap-2 transition-all duration-200 ${
+              className={`p-5 rounded-2xl border flex flex-col items-center gap-3 transition-all duration-200 ${
                 format === 'round_robin' 
-                  ? 'bg-pink-500 text-white shadow-[4px_4px_0px_#0f172a] transform -translate-y-1' 
-                  : 'bg-white text-slate-500 hover:bg-slate-50 shadow-[2px_2px_0px_#0f172a]'
+                  ? 'bg-[#171717] text-white border-[#171717] shadow-md' 
+                  : 'bg-white text-neutral-500 border-neutral-200 hover:bg-neutral-50'
               }`}
             >
-              <RefreshCw className="w-8 h-8" strokeWidth={2.5} />
+              <RefreshCw className="w-7 h-7" strokeWidth={2} />
               <div className="text-center">
-                <span className="block cartoon-title text-lg">{t('roundRobin', lang)}</span>
-                <span className="block text-sm font-bold opacity-80 mt-1">{t('pairByPoints', lang)}</span>
+                <span className="block font-bold text-lg">{t('roundRobin', lang)}</span>
+                <span className={`block text-xs font-medium mt-1 ${format === 'round_robin' ? 'text-neutral-400' : 'text-neutral-400'}`}>{t('pairByPoints', lang)}</span>
               </div>
             </button>
             <button
               onClick={() => setFormat('knockout')}
-              className={`p-4 rounded-2xl border-4 border-slate-900 flex flex-col items-center gap-2 transition-all duration-200 ${
+              className={`p-5 rounded-2xl border flex flex-col items-center gap-3 transition-all duration-200 ${
                 format === 'knockout' 
-                  ? 'bg-blue-500 text-white shadow-[4px_4px_0px_#0f172a] transform -translate-y-1' 
-                  : 'bg-white text-slate-500 hover:bg-slate-50 shadow-[2px_2px_0px_#0f172a]'
+                  ? 'bg-[#171717] text-white border-[#171717] shadow-md' 
+                  : 'bg-white text-neutral-500 border-neutral-200 hover:bg-neutral-50'
               }`}
             >
-              <Trophy className="w-8 h-8" strokeWidth={2.5} />
+              <Trophy className="w-7 h-7" strokeWidth={2} />
               <div className="text-center">
-                <span className="block cartoon-title text-lg">{t('knockout', lang)}</span>
-                <span className="block text-sm font-bold opacity-80 mt-1">{t('singleElimination', lang)}</span>
+                <span className="block font-bold text-lg">{t('knockout', lang)}</span>
+                <span className={`block text-xs font-medium mt-1 ${format === 'knockout' ? 'text-neutral-400' : 'text-neutral-400'}`}>{t('singleElimination', lang)}</span>
               </div>
             </button>
           </div>
           
           {format === 'round_robin' && (
-            <div className="mt-6 p-4 bg-pink-50 border-4 border-pink-200 rounded-2xl flex items-center justify-between">
-              <label className="font-bold text-slate-700">{t('numberOfRounds', lang)}</label>
+            <div className="mt-6 p-4 bg-green-50 border border-green-100 rounded-2xl flex items-center justify-between">
+              <label className="font-medium text-green-800">{t('numberOfRounds', lang)}</label>
               <div className="flex items-center gap-3">
                 <button 
                   onClick={() => setRounds(Math.max(1, rounds - 1))}
-                  className="w-8 h-8 rounded-lg bg-white border-2 border-slate-900 font-bold flex items-center justify-center hover:bg-slate-100"
+                  className="w-8 h-8 rounded-full bg-white border border-green-200 text-green-700 font-bold flex items-center justify-center hover:bg-green-100 transition-colors"
                 >-</button>
-                <span className="cartoon-title text-xl w-8 text-center">{rounds}</span>
+                <span className="font-bold text-xl w-8 text-center text-green-900">{rounds}</span>
                 <button 
                   onClick={() => setRounds(rounds + 1)}
-                  className="w-8 h-8 rounded-lg bg-white border-2 border-slate-900 font-bold flex items-center justify-center hover:bg-slate-100"
+                  className="w-8 h-8 rounded-full bg-white border border-green-200 text-green-700 font-bold flex items-center justify-center hover:bg-green-100 transition-colors"
                 >+</button>
               </div>
             </div>
           )}
         </div>
 
-        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-10">
-          <input
-            type="text"
+        <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 items-start">
+          <textarea
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleAdd(e);
+              }
+            }}
             placeholder={t('playerNamePlaceholder', lang)}
-            className="flex-1 cartoon-input"
+            className="flex-1 dash-input min-h-[50px] resize-y py-3"
+            rows={2}
           />
           <button 
             type="submit"
             disabled={!name.trim()}
-            className="cartoon-button cartoon-button-green w-full sm:w-auto"
+            className="dash-button bg-[#22c55e] hover:bg-[#16a34a] w-full sm:w-auto h-[50px] px-6"
           >
-            <UserPlus className="w-5 h-5" strokeWidth={3} />
+            <UserPlus className="w-4 h-4" strokeWidth={2} />
             {t('add', lang)}
           </button>
         </form>
 
         <div className="space-y-4 mb-10">
-          <div className="flex justify-between items-center mb-4 border-b-4 border-slate-900 pb-2">
-            <h3 className="cartoon-title text-lg text-slate-900">{t('playerList', lang)}</h3>
-            <span className="bg-slate-900 text-white font-bold px-3 py-1 rounded-full text-sm shadow-[2px_2px_0px_#94a3b8]">{players.length}</span>
+          <div className="flex justify-between items-center mb-4 border-b border-neutral-100 pb-3">
+            <h3 className="font-bold text-lg text-[#171717]">{t('playerList', lang)}</h3>
+            <span className="bg-[#171717] text-white font-medium px-3 py-0.5 rounded-full text-xs">{players.length}</span>
           </div>
           
           {players.length === 0 ? (
-            <div className="text-center py-10 bg-slate-100 rounded-2xl border-4 border-dashed border-slate-300 font-bold text-slate-400">
+            <div className="text-center py-12 bg-neutral-50 rounded-2xl border border-dashed border-neutral-200 font-medium text-neutral-400">
               {t('noPlayers', lang)}
             </div>
           ) : (
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {players.map((player, index) => (
-                <li key={player.id} className="flex items-center justify-between p-3 bg-white border-4 border-slate-900 rounded-xl shadow-[2px_2px_0px_#0f172a] hover:shadow-[4px_4px_0px_#0f172a] hover:-translate-y-1 transition-all group">
-                  <span className="font-bold text-slate-900 flex items-center gap-2">
-                    <span className="bg-slate-200 text-slate-600 w-6 h-6 rounded-full flex items-center justify-center text-xs border-2 border-slate-900">
+                <li key={player.id} className="flex items-center justify-between p-3.5 bg-white border border-neutral-100 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all group">
+                  <span className="font-medium text-[#171717] flex items-center gap-3">
+                    <span className="bg-neutral-100 text-neutral-500 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">
                       {index + 1}
                     </span>
                     {player.name}
                   </span>
                   <button
                     onClick={() => handleRemove(player.id)}
-                    className="text-slate-400 hover:text-red-500 transition-colors bg-slate-100 hover:bg-red-100 p-1.5 rounded-lg border-2 border-transparent hover:border-red-500"
+                    className="text-neutral-400 hover:text-red-500 transition-colors bg-neutral-50 hover:bg-red-50 p-1.5 rounded-full"
                     title="Remove"
                   >
-                    <Trash2 className="w-4 h-4" strokeWidth={2.5} />
+                    <Trash2 className="w-4 h-4" strokeWidth={2} />
                   </button>
                 </li>
               ))}
@@ -309,13 +322,13 @@ export default function Registration({ players, setPlayers, onStart, lang, confi
           )}
         </div>
 
-        <div className="flex justify-center pt-6">
+        <div className="flex justify-center pt-4">
           <button
             onClick={handleGenerate}
             disabled={players.length < 2}
-            className="cartoon-button cartoon-button-yellow text-xl px-10 py-4 w-full sm:w-auto"
+            className="dash-button bg-[#171717] hover:bg-[#22c55e] text-base px-10 py-3.5 w-full sm:w-auto"
           >
-            <Play className="w-6 h-6" fill="currentColor" strokeWidth={2} />
+            <Play className="w-5 h-5" fill="currentColor" strokeWidth={2} />
             {t('letsGo', lang)}
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Participant, Match, TournamentFormat, TournamentConfig } from '../types';
-import { Check, Edit2, X, Search, Zap, Download, Info } from 'lucide-react';
+import { Check, Edit2, X, Search, Zap, Download, Info, Trophy } from 'lucide-react';
 import { toPng } from 'html-to-image';
 import { Language, t } from '../i18n';
 
@@ -202,63 +202,65 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
   return (
     <div className="space-y-8 sm:space-y-12">
       {format === 'round_robin' && (
-        <div id="leaderboard" className="cartoon-card p-4 sm:p-8 overflow-x-auto relative">
+        <div id="leaderboard" className="dash-card p-4 sm:p-8 overflow-x-auto relative">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="cartoon-title text-xl sm:text-2xl text-slate-900 mx-auto">🏆 {t('standings', lang)}</h3>
+            <h3 className="font-bold text-xl sm:text-2xl text-[#171717] mx-auto flex items-center gap-2">
+              <Trophy className="w-6 h-6 text-[#22c55e]" /> {t('standings', lang)}
+            </h3>
             <button 
               onClick={handleExportLeaderboard}
               data-html2canvas-ignore="true"
-              className="absolute right-4 top-4 sm:right-8 sm:top-8 p-2 bg-white border-2 border-slate-900 rounded-lg shadow-[2px_2px_0px_#0f172a] text-slate-600 hover:text-blue-600 hover:-translate-y-0.5 transition-all"
+              className="absolute right-4 top-4 sm:right-8 sm:top-8 p-2 bg-white border border-neutral-200 rounded-full shadow-sm text-neutral-500 hover:text-[#171717] hover:bg-neutral-50 transition-all"
               title={t('exportImage', lang)}
             >
-              <Download className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={3} />
+              <Download className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2} />
             </button>
           </div>
-          <div className="border-4 border-slate-900 rounded-xl overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm font-bold min-w-[600px]">
-              <thead className="bg-slate-900 text-white">
+          <div className="border border-neutral-200 rounded-2xl overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm font-medium min-w-[600px]">
+              <thead className="bg-neutral-50 text-neutral-500 border-b border-neutral-200">
                 <tr>
-                  <th className="py-2 sm:py-3 pl-2 sm:pl-4">#</th>
-                  <th className="py-2 sm:py-3">{t('player', lang)}</th>
-                  <th className="py-2 sm:py-3 text-center">{t('played', lang)}</th>
-                  <th className="py-2 sm:py-3 text-center text-green-400">{t('won', lang)}</th>
-                  <th className="py-2 sm:py-3 text-center text-yellow-400">
-                    <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
-                      D <Info className="w-3 h-3 text-slate-400" />
+                  <th className="py-3 sm:py-4 pl-4 sm:pl-6 font-semibold">#</th>
+                  <th className="py-3 sm:py-4 font-semibold">{t('player', lang)}</th>
+                  <th className="py-3 sm:py-4 text-center font-semibold">{t('played', lang)}</th>
+                  <th className="py-3 sm:py-4 text-center text-[#22c55e] font-semibold">{t('won', lang)}</th>
+                  <th className="py-3 sm:py-4 text-center text-yellow-500 font-semibold">
+                    <div className="flex items-center justify-center gap-1 cursor-pointer hover:text-yellow-600" onClick={() => setShowRulesPopup(true)}>
+                      D <Info className="w-3 h-3 text-neutral-400" />
                     </div>
                   </th>
-                  <th className="py-2 sm:py-3 text-center text-red-400">{t('lost', lang)}</th>
-                  <th className="py-2 sm:py-3 text-center">
-                    <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
-                      GF <Info className="w-3 h-3 text-slate-400" />
+                  <th className="py-3 sm:py-4 text-center text-red-500 font-semibold">{t('lost', lang)}</th>
+                  <th className="py-3 sm:py-4 text-center font-semibold">
+                    <div className="flex items-center justify-center gap-1 cursor-pointer hover:text-neutral-700" onClick={() => setShowRulesPopup(true)}>
+                      GF <Info className="w-3 h-3 text-neutral-400" />
                     </div>
                   </th>
-                  <th className="py-2 sm:py-3 text-center">
-                    <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
-                      GA <Info className="w-3 h-3 text-slate-400" />
+                  <th className="py-3 sm:py-4 text-center font-semibold">
+                    <div className="flex items-center justify-center gap-1 cursor-pointer hover:text-neutral-700" onClick={() => setShowRulesPopup(true)}>
+                      GA <Info className="w-3 h-3 text-neutral-400" />
                     </div>
                   </th>
-                  <th className="py-2 sm:py-3 text-center">
-                    <div className="flex items-center justify-center gap-1 cursor-pointer" onClick={() => setShowRulesPopup(true)}>
-                      +/- <Info className="w-3 h-3 text-slate-400" />
+                  <th className="py-3 sm:py-4 text-center font-semibold">
+                    <div className="flex items-center justify-center gap-1 cursor-pointer hover:text-neutral-700" onClick={() => setShowRulesPopup(true)}>
+                      +/- <Info className="w-3 h-3 text-neutral-400" />
                     </div>
                   </th>
-                  <th className="py-2 sm:py-3 text-center text-yellow-400 text-sm sm:text-base">{t('points', lang)}</th>
+                  <th className="py-3 sm:py-4 text-center text-[#171717] font-bold text-sm sm:text-base">{t('points', lang)}</th>
                 </tr>
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white divide-y divide-neutral-100">
                 {calculateStandings().map((s, idx) => (
-                  <tr key={s.id} className="border-b-4 border-slate-900 last:border-b-0 hover:bg-slate-100 transition-colors">
-                    <td className="py-2 sm:py-3 pl-2 sm:pl-4 text-slate-500">{idx + 1}</td>
-                    <td className="py-2 sm:py-3 text-slate-900 text-sm sm:text-base">{s.name}</td>
-                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.played}</td>
-                    <td className="py-2 sm:py-3 text-center text-green-600">{s.won}</td>
-                    <td className="py-2 sm:py-3 text-center text-yellow-600">{s.drawn}</td>
-                    <td className="py-2 sm:py-3 text-center text-red-600">{s.lost}</td>
-                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.gf}</td>
-                    <td className="py-2 sm:py-3 text-center text-slate-600">{s.ga}</td>
-                    <td className="py-2 sm:py-3 text-center text-blue-600">{s.gd > 0 ? `+${s.gd}` : s.gd}</td>
-                    <td className="py-2 sm:py-3 text-center text-slate-900 text-base sm:text-lg">{s.points}</td>
+                  <tr key={s.id} className="hover:bg-neutral-50 transition-colors">
+                    <td className="py-3 sm:py-4 pl-4 sm:pl-6 text-neutral-400 font-medium">{idx + 1}</td>
+                    <td className="py-3 sm:py-4 text-[#171717] font-semibold text-sm sm:text-base">{s.name}</td>
+                    <td className="py-3 sm:py-4 text-center text-neutral-500">{s.played}</td>
+                    <td className="py-3 sm:py-4 text-center text-[#22c55e] font-semibold">{s.won}</td>
+                    <td className="py-3 sm:py-4 text-center text-yellow-600 font-medium">{s.drawn}</td>
+                    <td className="py-3 sm:py-4 text-center text-red-500 font-medium">{s.lost}</td>
+                    <td className="py-3 sm:py-4 text-center text-neutral-500">{s.gf}</td>
+                    <td className="py-3 sm:py-4 text-center text-neutral-500">{s.ga}</td>
+                    <td className="py-3 sm:py-4 text-center text-neutral-700 font-medium">{s.gd > 0 ? `+${s.gd}` : s.gd}</td>
+                    <td className="py-3 sm:py-4 text-center text-[#171717] font-bold text-base sm:text-lg">{s.points}</td>
                   </tr>
                 ))}
               </tbody>
@@ -267,28 +269,28 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
         </div>
       )}
 
-      <div className="cartoon-card p-4 sm:p-8">
-        <div className="mb-6 sm:mb-8 max-w-md mx-auto flex items-center bg-white cartoon-border shadow-[4px_4px_0px_#0f172a] rounded-xl overflow-hidden px-3 sm:px-4">
-          <Search className="text-slate-400 w-6 h-6 flex-shrink-0" strokeWidth={3} />
+      <div className="dash-card p-4 sm:p-8">
+        <div className="mb-6 sm:mb-8 max-w-md mx-auto flex items-center bg-neutral-50 border border-neutral-200 rounded-full overflow-hidden px-4 focus-within:border-[#22c55e] focus-within:ring-4 focus-within:ring-[#22c55e]/10 transition-all">
+          <Search className="text-neutral-400 w-5 h-5 flex-shrink-0" strokeWidth={2} />
           <input 
             type="text" 
             placeholder={lang === 'th' ? 'ค้นหาผู้เล่น...' : 'Search player...'}
-            className="w-full py-3 px-3 outline-none text-slate-700 font-bold bg-transparent"
+            className="w-full py-3 px-3 outline-none text-[#171717] font-medium bg-transparent placeholder-neutral-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
         <div className="overflow-x-auto pb-8">
-          <div className="flex gap-12 min-w-max">
+          <div className="flex gap-8 min-w-max">
             {rounds.map(round => {
               const roundMatches = filteredMatches.filter(m => m.round === round).sort((a, b) => a.matchOrder - b.matchOrder);
               if (roundMatches.length === 0) return null;
               
               return (
-                <div key={round} id={`round-${round}`} className="flex flex-col justify-around gap-8 w-72 p-4 bg-slate-50 rounded-2xl relative">
-                  <div className="text-center flex flex-col items-center gap-2">
-                    <span className="inline-block bg-slate-900 text-white cartoon-title px-4 py-2 rounded-xl shadow-[4px_4px_0px_#3b82f6] transform -rotate-2">
+                <div key={round} id={`round-${round}`} className="flex flex-col justify-start gap-6 w-72 p-5 bg-neutral-50 rounded-3xl border border-neutral-100 relative">
+                  <div className="text-center flex flex-col items-center gap-3 mb-2">
+                    <span className="inline-block bg-[#171717] text-white font-bold px-4 py-1.5 rounded-full text-sm shadow-sm">
                       {format === 'knockout' ? (
                         round === currentMaxRound ? `🏆 ${t('final', lang)}` : 
                         round === currentMaxRound - 1 ? `🔥 Semi-Finals` : 
@@ -323,29 +325,29 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
                             setEditingRoundTime(null);
                           }
                         }}
-                        className="text-sm font-bold text-slate-700 bg-white border-2 border-slate-900 px-2 py-1 rounded-lg shadow-[2px_2px_0px_#0f172a] w-24 text-center outline-none"
+                        className="text-sm font-medium text-[#171717] bg-white border border-[#22c55e] px-3 py-1 rounded-full shadow-sm w-24 text-center outline-none focus:ring-2 focus:ring-[#22c55e]/20"
                         placeholder="10:00"
                       />
                     ) : (
                       <div 
-                        className="text-sm font-bold text-slate-700 bg-white border-2 border-slate-900 px-3 py-1 rounded-lg shadow-[2px_2px_0px_#0f172a] cursor-pointer hover:bg-slate-100 transition-colors"
+                        className="text-sm font-medium text-neutral-500 bg-white border border-neutral-200 px-3 py-1 rounded-full shadow-sm cursor-pointer hover:bg-neutral-50 hover:text-[#171717] transition-colors flex items-center gap-1.5"
                         onClick={() => {
                           setTempRoundTime(roundMatches[0]?.customTime || '');
                           setEditingRoundTime(round);
                         }}
                         title={lang === 'th' ? 'คลิกเพื่อแก้ไขเวลา' : 'Click to edit time'}
                       >
-                        🕒 {roundMatches[0]?.customTime || (lang === 'th' ? 'ตั้งเวลา' : 'Set Time')}
+                        <span className="text-xs">🕒</span> {roundMatches[0]?.customTime || (lang === 'th' ? 'ตั้งเวลา' : 'Set Time')}
                       </div>
                     )}
 
                     <button 
                       onClick={() => handleExportRound(round)}
                       data-html2canvas-ignore="true"
-                      className="absolute right-2 top-2 p-2 bg-white border-2 border-slate-900 rounded-lg shadow-[2px_2px_0px_#0f172a] text-slate-600 hover:text-blue-600 hover:-translate-y-0.5 transition-all"
+                      className="absolute right-3 top-3 p-2 bg-white border border-neutral-200 rounded-full shadow-sm text-neutral-400 hover:text-[#171717] hover:bg-neutral-50 transition-all"
                       title={t('exportImage', lang)}
                     >
-                      <Download className="w-4 h-4" strokeWidth={3} />
+                      <Download className="w-4 h-4" strokeWidth={2} />
                     </button>
                   </div>
                   {roundMatches.map((match, idx) => {
@@ -376,9 +378,9 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
           <div className="mt-8 flex justify-center">
             <button 
               onClick={handleGenerateNextRound}
-              className="cartoon-button cartoon-button-yellow text-lg sm:text-xl px-6 sm:px-12 py-4 w-full sm:w-auto"
+              className="dash-button bg-[#171717] hover:bg-[#22c55e] text-base px-8 py-3 w-full sm:w-auto"
             >
-              <Zap className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" />
+              <Zap className="w-5 h-5" fill="currentColor" />
               {t('generateNextRound', lang)}
             </button>
           </div>
@@ -387,38 +389,38 @@ export default function Bracket({ players, matches, format, totalRounds, onUpdat
 
       {/* Rules Popup */}
       {showRulesPopup && (
-        <div className="fixed inset-0 bg-slate-900/50 flex items-center justify-center z-[100] p-4">
-          <div className="bg-white rounded-2xl p-6 max-w-md w-full cartoon-border shadow-[8px_8px_0px_#0f172a]">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl cartoon-title text-slate-900">
+        <div className="fixed inset-0 bg-neutral-900/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
+          <div className="dash-card p-6 max-w-md w-full">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl font-bold text-[#171717]">
                 {lang === 'th' ? 'คำอธิบายตารางคะแนน' : 'Score Table Legend'}
               </h2>
-              <button onClick={() => setShowRulesPopup(false)} className="text-slate-400 hover:text-slate-600">
-                <X className="w-6 h-6" strokeWidth={3} />
+              <button onClick={() => setShowRulesPopup(false)} className="text-neutral-400 hover:text-neutral-600 p-1 rounded-full hover:bg-neutral-100 transition-colors">
+                <X className="w-5 h-5" strokeWidth={2} />
               </button>
             </div>
-            <div className="space-y-4 text-slate-700">
-              <div className="flex gap-3">
-                <span className="font-bold text-yellow-500 w-8">D</span>
+            <div className="space-y-4 text-neutral-600 text-sm">
+              <div className="flex gap-3 items-center">
+                <span className="font-bold text-yellow-500 w-8 text-center bg-yellow-50 rounded py-1">D</span>
                 <span>{lang === 'th' ? 'Draw (เสมอ)' : 'Draw'}</span>
               </div>
-              <div className="flex gap-3">
-                <span className="font-bold text-slate-900 w-8">GF</span>
+              <div className="flex gap-3 items-center">
+                <span className="font-bold text-[#171717] w-8 text-center bg-neutral-100 rounded py-1">GF</span>
                 <span>{lang === 'th' ? 'Goals For (คะแนนที่ได้)' : 'Goals For (Points Scored)'}</span>
               </div>
-              <div className="flex gap-3">
-                <span className="font-bold text-slate-900 w-8">GA</span>
+              <div className="flex gap-3 items-center">
+                <span className="font-bold text-[#171717] w-8 text-center bg-neutral-100 rounded py-1">GA</span>
                 <span>{lang === 'th' ? 'Goals Against (คะแนนที่เสีย)' : 'Goals Against (Points Conceded)'}</span>
               </div>
-              <div className="flex gap-3">
-                <span className="font-bold text-blue-600 w-8">+/-</span>
+              <div className="flex gap-3 items-center">
+                <span className="font-bold text-neutral-500 w-8 text-center bg-neutral-50 rounded py-1">+/-</span>
                 <span>{lang === 'th' ? 'Goal Difference (ผลต่างคะแนนได้เสีย)' : 'Goal Difference'}</span>
               </div>
             </div>
-            <div className="mt-6 flex justify-end">
+            <div className="mt-8 flex justify-end">
               <button
                 onClick={() => setShowRulesPopup(false)}
-                className="cartoon-button bg-blue-500 text-white px-6 py-2"
+                className="dash-button"
               >
                 {lang === 'th' ? 'เข้าใจแล้ว' : 'Got it'}
               </button>
@@ -493,31 +495,31 @@ const MatchCard: React.FC<{
 
   if (match.isBye) {
     return (
-      <div className="bg-slate-100 border-4 border-dashed border-slate-300 rounded-2xl p-4 opacity-70">
-        <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">{t('bye', lang)}</div>
-        <div className="font-bold text-slate-600 text-lg">{getPlayerName(match.player1Id)}</div>
+      <div className="bg-neutral-50 border border-dashed border-neutral-200 rounded-2xl p-4 opacity-70 flex flex-col items-center justify-center min-h-[100px]">
+        <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1">{t('bye', lang)}</div>
+        <div className="font-semibold text-neutral-600 text-sm text-center">{getPlayerName(match.player1Id)}</div>
       </div>
     );
   }
 
   return (
-    <div className={`relative bg-white border-4 border-slate-900 rounded-2xl transition-all duration-200 ${
-      isCompleted ? 'shadow-[4px_4px_0px_#94a3b8]' : 
-      isPlayable ? 'shadow-[6px_6px_0px_#0f172a] hover:shadow-[8px_8px_0px_#0f172a] hover:-translate-y-1' : 'opacity-50 shadow-[2px_2px_0px_#0f172a]'
+    <div className={`relative bg-white border border-neutral-200 rounded-2xl transition-all duration-200 ${
+      isCompleted ? 'shadow-sm opacity-80' : 
+      isPlayable ? 'shadow-sm hover:shadow-md hover:-translate-y-0.5' : 'opacity-50'
     }`}>
       {/* Court Info */}
-      <div className="absolute -top-3 -right-3 bg-green-400 border-2 border-slate-900 px-2 py-0.5 rounded-lg font-bold text-[10px] shadow-[2px_2px_0px_#0f172a] transform rotate-3 text-slate-900 z-10">
+      <div className="absolute -top-3 -right-2 bg-[#22c55e] text-white px-2.5 py-0.5 rounded-full font-bold text-[10px] shadow-sm z-10 tracking-wide">
         {t('court', lang)} {courtNumber}
       </div>
 
       {isEditing ? (
-        <div className="p-4 pt-6 space-y-4">
+        <div className="p-4 pt-5 space-y-4">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-base font-bold text-slate-900 truncate flex-1">{getPlayerName(match.player1Id)}</span>
+            <span className="text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player1Id)}</span>
             <div className="flex gap-2 items-center">
               <button 
                 onClick={() => handleWinByBye(match.player1Id)}
-                className="text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded border-2 border-slate-300 whitespace-nowrap"
+                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
                 title={lang === 'th' ? 'ชนะบาย' : 'Win by Bye'}
               >
                 {lang === 'th' ? 'บาย' : 'BYE'}
@@ -526,21 +528,21 @@ const MatchCard: React.FC<{
                 type="number" 
                 value={score1} 
                 onChange={e => setScore1(e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-20 px-2 py-1 text-center cartoon-input !shadow-[2px_2px_0px_#0f172a]"
+                className="w-16 px-2 py-1.5 text-center dash-input !rounded-lg"
                 placeholder="0"
               />
             </div>
           </div>
           <div className="flex items-center justify-center my-1 relative">
-            <div className="absolute inset-x-0 h-0.5 bg-slate-100 rounded-full"></div>
-            <span className="relative bg-white px-2 text-[10px] font-black text-slate-400 italic">{t('vs', lang)}</span>
+            <div className="absolute inset-x-0 h-[1px] bg-neutral-100"></div>
+            <span className="relative bg-white px-2 text-[10px] font-bold text-neutral-300 uppercase tracking-widest">{t('vs', lang)}</span>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <span className="text-base font-bold text-slate-900 truncate flex-1">{getPlayerName(match.player2Id)}</span>
+            <span className="text-sm font-semibold text-[#171717] truncate flex-1">{getPlayerName(match.player2Id)}</span>
             <div className="flex gap-2 items-center">
               <button 
                 onClick={() => handleWinByBye(match.player2Id)}
-                className="text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-600 px-2 py-1 rounded border-2 border-slate-300 whitespace-nowrap"
+                className="text-[10px] font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-600 px-2 py-1.5 rounded-lg transition-colors whitespace-nowrap"
                 title={lang === 'th' ? 'ชนะบาย' : 'Win by Bye'}
               >
                 {lang === 'th' ? 'บาย' : 'BYE'}
@@ -549,23 +551,23 @@ const MatchCard: React.FC<{
                 type="number" 
                 value={score2} 
                 onChange={e => setScore2(e.target.value === '' ? '' : Number(e.target.value))}
-                className="w-20 px-2 py-1 text-center cartoon-input !shadow-[2px_2px_0px_#0f172a]"
+                className="w-16 px-2 py-1.5 text-center dash-input !rounded-lg"
                 placeholder="0"
               />
             </div>
           </div>
-          <div className="flex gap-2 mt-4">
-            <button onClick={handleSave} className="flex-1 cartoon-button cartoon-button-green py-2 text-sm">
-              <Check className="w-4 h-4" strokeWidth={3} />
+          <div className="flex gap-2 mt-4 pt-2 border-t border-neutral-100">
+            <button onClick={handleSave} className="flex-1 dash-button bg-[#22c55e] hover:bg-[#16a34a] py-2">
+              <Check className="w-4 h-4" strokeWidth={2} />
             </button>
-            <button onClick={() => setIsEditing(false)} className="flex-1 cartoon-button cartoon-button-pink py-2 text-sm">
-              <X className="w-4 h-4" strokeWidth={3} />
+            <button onClick={() => setIsEditing(false)} className="flex-1 dash-button bg-neutral-100 hover:bg-neutral-200 text-neutral-600 py-2">
+              <X className="w-4 h-4" strokeWidth={2} />
             </button>
           </div>
         </div>
       ) : (
         <div 
-          className={`p-4 pt-6 cursor-pointer group ${!isPlayable ? 'cursor-not-allowed' : ''}`}
+          className={`p-4 pt-5 cursor-pointer group ${!isPlayable ? 'cursor-not-allowed' : ''}`}
           onClick={() => {
             if (isPlayable) {
               setScore1(match.score1);
@@ -574,27 +576,27 @@ const MatchCard: React.FC<{
             }
           }}
         >
-          <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player1Id ? 'text-blue-600' : 'text-slate-600'}`}>
-            <span className="text-base font-bold truncate pr-2">{getPlayerName(match.player1Id)}</span>
-            <span className={`text-lg font-bold min-w-[2.5rem] px-1 text-center rounded-lg ${match.score1 !== '' ? 'bg-slate-100 border-2 border-slate-900' : ''}`}>
+          <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player1Id ? 'text-[#22c55e]' : 'text-neutral-600'}`}>
+            <span className={`text-sm font-semibold truncate pr-2 ${match.winnerId === match.player1Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player1Id)}</span>
+            <span className={`text-base font-bold min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score1 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
               {match.score1 !== '' ? match.score1 : '-'}
             </span>
           </div>
-          <div className="flex items-center justify-center my-1 relative">
-            <div className="absolute inset-x-0 h-0.5 bg-slate-100 rounded-full"></div>
-            <span className="relative bg-white px-2 text-[10px] font-black text-slate-400 italic">{t('vs', lang)}</span>
+          <div className="flex items-center justify-center my-1.5 relative">
+            <div className="absolute inset-x-0 h-[1px] bg-neutral-100"></div>
+            <span className="relative bg-white px-2 text-[10px] font-bold text-neutral-300 uppercase tracking-widest">{t('vs', lang)}</span>
           </div>
-          <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player2Id ? 'text-blue-600' : 'text-slate-600'}`}>
-            <span className="text-base font-bold truncate pr-2">{getPlayerName(match.player2Id)}</span>
-            <span className={`text-lg font-bold min-w-[2.5rem] px-1 text-center rounded-lg ${match.score2 !== '' ? 'bg-slate-100 border-2 border-slate-900' : ''}`}>
+          <div className={`flex justify-between items-center py-1.5 ${match.winnerId === match.player2Id ? 'text-[#22c55e]' : 'text-neutral-600'}`}>
+            <span className={`text-sm font-semibold truncate pr-2 ${match.winnerId === match.player2Id ? 'text-[#171717]' : ''}`}>{getPlayerName(match.player2Id)}</span>
+            <span className={`text-base font-bold min-w-[2.5rem] px-1.5 py-0.5 text-center rounded-lg ${match.score2 !== '' ? 'bg-neutral-50 text-[#171717]' : 'text-neutral-300'}`}>
               {match.score2 !== '' ? match.score2 : '-'}
             </span>
           </div>
           
           {isPlayable && !isCompleted && (
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-[2px] rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <span className="bg-yellow-300 text-slate-900 font-bold px-3 py-1.5 rounded-xl border-2 border-slate-900 shadow-[2px_2px_0px_#0f172a] flex items-center gap-2 transform -rotate-3">
-                <Edit2 className="w-4 h-4" strokeWidth={3} /> {t('edit', lang)}
+            <div className="absolute inset-0 bg-white/90 backdrop-blur-[1px] rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <span className="bg-[#171717] text-white font-medium px-4 py-2 rounded-full text-sm shadow-md flex items-center gap-2">
+                <Edit2 className="w-3.5 h-3.5" strokeWidth={2} /> {t('edit', lang)}
               </span>
             </div>
           )}

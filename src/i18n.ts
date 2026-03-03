@@ -18,7 +18,7 @@ export const translations = {
     roundRobin: 'Round Robin',
     pairByPoints: 'Pair by Points',
     numberOfRounds: 'Number of Rounds:',
-    playerNamePlaceholder: 'Player Name...',
+    playerNamePlaceholder: 'Player Name (type one or paste multiple from Excel)...',
     add: 'Add',
     playerList: 'Player List',
     noPlayers: 'No players added yet!',
@@ -51,6 +51,7 @@ export const translations = {
     tournamentCompleted: 'Tournament Completed!',
     viewFinalReport: 'View Final Report',
     confirmReset: 'Are you sure you want to start over? All data will be lost! 💥',
+    visitors: 'Visitors',
   },
   th: {
     appName: 'EzBattle',
@@ -69,7 +70,7 @@ export const translations = {
     roundRobin: 'พบกันหมด',
     pairByPoints: 'จับคู่ตามคะแนน',
     numberOfRounds: 'จำนวนรอบ:',
-    playerNamePlaceholder: 'ชื่อผู้เล่น...',
+    playerNamePlaceholder: 'ชื่อผู้เล่น (พิมพ์ทีละคน หรือวางจาก Excel ได้หลายคน)...',
     add: 'เพิ่ม',
     playerList: 'รายชื่อผู้เล่น',
     noPlayers: 'ยังไม่มีผู้เล่น!',
@@ -102,6 +103,7 @@ export const translations = {
     tournamentCompleted: 'การแข่งขันเสร็จสิ้น!',
     viewFinalReport: 'ดูสรุปผลการแข่งขัน',
     confirmReset: 'คุณแน่ใจหรือไม่ว่าต้องการเริ่มใหม่? ข้อมูลทั้งหมดจะสูญหาย! 💥',
+    visitors: 'ผู้เข้าชม',
   }
 };
 
